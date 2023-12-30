@@ -7,6 +7,19 @@ const searchBtn= document.querySelector(".searches button");
 
 const weatherIcon=document.querySelector(".weatherimg")
 
+fetchData(cityName);
+
+const cachedWeatherData = localStorage.getItem("defaultWeatherData");
+if (cachedWeatherData){
+    const weather =JSON.parse(cachedWeatherData);
+    populateWeatherData(weather);
+}
+
+const city = document.querySelector(".searchbar");
+function searchWeather(){
+    fetchData(city.value);
+    city.value="";
+}
 
 async function checkWeather(city){
     const response=await fetch(apiUrl + city + `&appid=${apiKey}`);
@@ -48,16 +61,3 @@ searchBtn.addEventListener("click",()=>{
     checkWeather(searchBox.value);
 })
 
-// fetchData(cityName);
-
-// const cachedWeatherData = localStorage.getItem("defaultWeatherData");
-// if (cachedWeatherData){
-//     const weather =JSON.parse(cachedWeatherData);
-//     populateWeatherData(weather);
-// }
-
-// const city = document.querySelector(".searchbar");
-// function searchWeather(){
-//     fetchData(city.value);
-//     city.value="";
-// }
